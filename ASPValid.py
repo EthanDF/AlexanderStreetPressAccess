@@ -51,7 +51,7 @@ def readMarc():
 
 
 readMarc()
-# --test
+
 
 
 
