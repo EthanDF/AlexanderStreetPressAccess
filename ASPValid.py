@@ -28,7 +28,11 @@ def logResults(recordID, title, url, urlresult):
 
     with open(resultsFile, 'a', newline='') as out:
         a = csv.writer(out, delimiter=',', quoting=csv.QUOTE_ALL)
-        a.writerows(data)
+        try:
+            a.writerows(data)
+        except UnicodeEncodeError:
+            data = [[now, str(recordID), 'Title cannot be printed', str(url), str(urlresult)]]
+            a.writerows(data)
 
 def readMarc():
 
