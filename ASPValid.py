@@ -2,7 +2,7 @@
 from pymarc import *
 import csv
 
-marcFile = 'c://users/fenichele//desktop//HURI_Supplement2(video)_UnitedStates-UTF8.mrc'
+marcFile = 'c://users/fenichele//desktop//test.mrc'
 
 def testURL(url):
     import requests
@@ -40,11 +40,18 @@ def readMarc():
         reader = MARCReader(m)
 
         for record in reader:
-            url = record['856']['u']
+            # return record
+            if record['856'] is None:
+                url = None
+            else:
+                url = record['856']['u']
             recordID = record['001'].value()
             title = record['245']['a']
             # print (url)
-            urlresult = testURL(url)
+            if url is None:
+                urlresult = 1
+            else:
+                urlresult = testURL(url)
 
 
             logResults(recordID, title, url, urlresult)
