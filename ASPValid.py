@@ -20,10 +20,10 @@ def testURL(url):
     return result
 
 
-def logResults(recordID, title, url, urlresult):
+def logResults(recordID, recordNumber, title, url, urlresult):
     import time
     now = time.strftime('%Y-%m-%d %H:%M:%S')
-    data = [[now, str(recordID), str(title), str(url), str(urlresult)]]
+    data = [[now, str(recordID), str(recordNumber), str(title), str(url), str(urlresult)]]
 
     resultsFile = 'accessChecks.csv'
 
@@ -45,10 +45,10 @@ def readMarc():
             urlList = []
             counter += 1
 
-            startRecord = 4860
+            startRecord = 16816
             if counter < startRecord:
                continue
-            else:
+            elif counter == startRecord:
                 print('starting with record '+str(startRecord))
 			
             # return record
@@ -63,6 +63,7 @@ def readMarc():
             if urls is None:
                 url = None
                 urlresult = 1
+                logResults(recordID, counter, title, url, urlresult)
             else:
                 for x in urls:
                     if x['u'] is None:
@@ -74,7 +75,7 @@ def readMarc():
 
                 for url in urlList:
                     urlresult = testURL(url)
-                    logResults(recordID, title, url, urlresult)
+                    logResults(recordID, counter, title, url, urlresult)
 
 
             continueTest = 'y'
