@@ -2,6 +2,7 @@
 from pymarc import *
 import csv
 
+ # marcFile = 'Z:\\GenLoad\\AlexanderStreetPress\\AVON\\Avon_Removals\\201607_Removals\\faavonallb.mrc'
 marcFile = 'faavonallb.mrc'
 
 def testURL(url):
@@ -32,7 +33,7 @@ def logResults(recordID, recordNumber, title, url, urlresult):
         try:
             a.writerows(data)
         except UnicodeEncodeError:
-            data = [[now, str(recordID), 'Title cannot be printed', str(url), str(urlresult)]]
+            data = [[now, str(recordID), str(recordNumber), 'Title cannot be printed', str(url), str(urlresult)]]
             a.writerows(data)
 
 def readMarc():
@@ -45,7 +46,7 @@ def readMarc():
             urlList = []
             counter += 1
 
-            startRecord = 16816
+            startRecord = 0
             if counter < startRecord:
                continue
             elif counter == startRecord:
@@ -82,7 +83,6 @@ def readMarc():
             # continueTest = str(input('continue? press "n" to stop'))
             if continueTest == 'n':
                 print(1/0)
-
 
 readMarc()
 
